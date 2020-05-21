@@ -1,5 +1,3 @@
-
-
 Instr  {
 
 	classvar <dir;
@@ -60,6 +58,14 @@ Instr  {
 				});
 			});
 		};
+	}
+	*recursLoadDir {arg dir;
+		var folderPath;
+		this.prLoadDir(dir);
+		if(dir.isKindOf(PathName), {
+			folderPath = dir}, {
+			folderPath = PathName(dir)});
+		folderPath.folders.do({|subdir| this.recursLoadDir(subdir)});
 	}
 	*addExcludePaths {
 		// 3.5 + only
